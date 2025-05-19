@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محیصا آرت - طراحی گرافیک</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#FFD700',secondary:'#1A1A1A'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        @font-face {
+            font-family: 'Yekan';
+            src: url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.eot');
+            src: url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.eot?#iefix') format('embedded-opentype'),
+                 url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.woff') format('woff'),
+                 url('https://cdn.fontcdn.ir/Font/Persian/Yekan/Yekan.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'IranNastaliq';
+            src: url('https://cdn.fontcdn.ir/Font/Persian/IranNastaliq/IranNastaliq.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        * {
+            font-family: 'Yekan', sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        
+        .nastaliq {
+            font-family: 'IranNastaliq', serif;
+        }
+        
+        .logo-container {
+            transition: all 0.3s ease;
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .service-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .contact-item {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(-10px);
+            color: #FFD700;
+        }
+        
+        .quote-container {
+            background: linear-gradient(135deg, rgba(50, 50, 50, 0.4), rgba(20, 20, 20, 0.6));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.05), transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .service-content {
+            display: none;
+        }
+        
+        .service-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-secondary fixed w-full top-0 z-50">
+        <div class="bg-primary py-4 relative">
+            <div id="logo" class="logo-container flex justify-center items-center">
+                <h1 class="text-3xl font-bold text-secondary">محیصا آرت</h1>
+            </div>
+        </div>
+        <nav class="container mx-auto py-4 px-6">
+            <ul class="flex justify-center items-center space-x-8 space-x-reverse">
+                <li><a href="#services" class="text-gray-300 hover:text-primary transition-colors">خدمات</a></li>
+                <li><a href="#about" class="text-gray-300 hover:text-primary transition-colors">درباره ما</a></li>
+                <li><a href="#contact" class="text-gray-300 hover:text-primary transition-colors">ارتباط با ما</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-secondary to-[#1D1D1D]">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-6 text-primary shimmer">به دنیای طراحی محیصا آرت خوش آمدید</h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">خلاقیت بی‌پایان، کیفیت بی‌نظیر و طراحی منحصر به فرد برای کسب و کار شما</p>
+            <a href="#services" class="bg-primary text-secondary px-8 py-3 rounded-button font-bold hover:bg-opacity-90 transition-all inline-block">مشاهده خدمات</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 px-6 bg-[#151515]">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary">خدمات ما</h2>
+            
+            <div class="flex flex-wrap justify-center gap-8">
+                <!-- Service Cards -->
+                <div class="service-card relative bg-[#1A1A1A] rounded-lg p-6 w-full md:w-[30%] border border-[#333] hover:border-primary cursor-pointer" data-service="poster">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4 mx-auto">
+                        <i class="ri-artboard-2-line text-primary ri-2x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-3 text-white">طراحی پوستر</h3>
+                    <p class="text-gray-400 text-center">طراحی پوسترهای جذاب و حرفه‌ای برای تبلیغات، رویدادها و مناسبت‌های مختلف</p>
+                </div>
+                
+                <div class="service-card relative bg-[#1A1A1A] rounded-lg p-6 w-full md:w-[30%] border border-[#333] hover:border-primary cursor-pointer" data-service="tract">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4 mx-auto">
+                        <i class="ri-file-paper-2-line text-primary ri-2x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-3 text-white">طراحی تراکت</h3>
+                    <p class="text-gray-400 text-center">طراحی تراکت‌های تبلیغاتی با طرح‌های خلاقانه و اثرگذار برای معرفی کسب و کار شما</p>
+                </div>
+                
+                <div class="service-card relative bg-[#1A1A1A] rounded-lg p-6 w-full md:w-[30%] border border-[#333] hover:border-primary cursor-pointer" data-service="inscription">
+                    <div class="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4 mx-auto">
+                        <i class="ri-brush-line text-primary ri-2x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-3 text-white">طراحی کتیبه</h3>
+                    <p class="text-gray-400 text-center">طراحی کتیبه‌های هنری و مذهبی با خطوط زیبا و طراحی منحصر به فرد</p>
+                </div>
+            </div>
+            
+            <!-- Service Content -->
+            <div class="mt-16">
+                <div id="poster-content" class="service-content bg-[#1D1D1D] rounded-lg p-8 border border-[#333]">
+                    <h3 class="text-3xl font-bold mb-6 text-primary">طراحی پوستر</h3>
+                    <div class="flex flex-wrap md:flex-nowrap gap-8">
+                        <div class="w-full md:w-2/3">
+                            <h4 class="text-xl font-bold mb-3">سبحان سلیمانی‌نژاد</h4>
+                            <p class="text-gray-300 mb-4">متخصص در طراحی پوسترهای تبلیغاتی و هنری با بیش از 5 سال تجربه در زمینه طراحی گرافیک. طراحی‌های من ترکیبی از خلاقیت، زیبایی‌شناسی و اصول حرفه‌ای طراحی است.</p>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-lg font-bold mb-2 text-primary/80">تخصص‌ها:</h5>
+                                <ul class="list-disc list-inside text-gray-300 space-y-1">
+                                    <li>طراحی پوسترهای تبلیغاتی</li>
+                                    <li>طراحی پوسترهای رویدادها و همایش‌ها</li>
+                                    <li>طراحی پوسترهای فرهنگی و هنری</li>
+                                    <li>طراحی پوسترهای مناسبتی و فصلی</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-lg font-bold mb-2 text-primary/80">نرم‌افزارهای تخصصی:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">Adobe Photoshop</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">Adobe Illustrator</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">CorelDRAW</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">Adobe InDesign</span>
+                                </div>
+                            </div>
+                            
+                            <a href="https://instagram.com/mahisaartt" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-button hover:opacity-90 transition-all">
+                                <i class="ri-instagram-line"></i>
+                                <span>مشاهده نمونه کارها در اینستاگرام</span>
+                            </a>
+                        </div>
+                        
+                        <div class="w-full md:w-1/3 bg-[#222] rounded-lg overflow-hidden">
+                            <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20poster%20design%20with%20vibrant%20colors%20and%20modern%20aesthetic%2C%20graphic%20design%20workspace%20with%20artistic%20posters%20hanging%20on%20wall%2C%20creative%20studio%20environment&width=400&height=500&seq=poster1&orientation=portrait')"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="tract-content" class="service-content bg-[#1D1D1D] rounded-lg p-8 border border-[#333]">
+                    <h3 class="text-3xl font-bold mb-6 text-primary">طراحی تراکت</h3>
+                    <div class="flex flex-wrap md:flex-nowrap gap-8">
+                        <div class="w-full md:w-2/3">
+                            <h4 class="text-xl font-bold mb-3">سبحان سلیمانی‌نژاد</h4>
+                            <p class="text-gray-300 mb-4">متخصص در طراحی تراکت‌های تبلیغاتی با رویکردی خلاقانه و کاربردی. تراکت‌های من با هدف جلب توجه مخاطب و انتقال پیام به شکلی اثرگذار طراحی می‌شوند.</p>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-lg font-bold mb-2 text-primary/80">ویژگی‌های طراحی تراکت:</h5>
+                                <ul class="list-disc list-inside text-gray-300 space-y-1">
+                                    <li>طراحی متناسب با برند و هویت بصری شما</li>
+                                    <li>استفاده از رنگ‌ها و المان‌های جذاب و چشم‌نواز</li>
+                                    <li>چیدمان اصولی اطلاعات برای خوانایی بهتر</li>
+                                    <li>طراحی برای چاپ با کیفیت بالا</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-lg font-bold mb-2 text-primary/80">انواع تراکت‌های طراحی شده:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">تراکت‌های تبلیغاتی</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">تراکت‌های اطلاع‌رسانی</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">تراکت‌های رویدادها</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">تراکت‌های فروش ویژه</span>
+                                </div>
+                            </div>
+                            
+                            <a href="https://instagram.com/mahisaartt" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-button hover:opacity-90 transition-all">
+                                <i class="ri-instagram-line"></i>
+                                <span>مشاهده نمونه کارها در اینستاگرام</span>
+                            </a>
+                        </div>
+                        
+                        <div class="w-full md:w-1/3 bg-[#222] rounded-lg overflow-hidden">
+                            <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=colorful%20flyer%20design%20with%20modern%20typography%20and%20clean%20layout%2C%20professional%20marketing%20materials%20on%20display%2C%20creative%20branding%20materials&width=400&height=500&seq=tract1&orientation=portrait')"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="inscription-content" class="service-content bg-[#1D1D1D] rounded-lg p-8 border border-[#333]">
+                    <h3 class="text-3xl font-bold mb-6 text-primary">طراحی کتیبه</h3>
+                    <div class="flex flex-wrap md:flex-nowrap gap-8">
+                        <div class="w-full md:w-2/3">
+                            <h4 class="text-xl font-bold mb-3">سبحان سلیمانی‌نژاد</h4>
+                            <p class="text-gray-300 mb-4">هنرمند و طراح کتیبه‌های هنری و مذهبی با تلفیقی از هنر سنتی و مدرن. کتیبه‌های من با دقت و ظرافت خاصی طراحی می‌شوند تا حس معنویت و زیبایی را به مخاطب منتقل کنند.</p>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-lg font-bold mb-2 text-primary/80">انواع کتیبه‌ها:</h5>
+                                <ul class="list-disc list-inside text-gray-300 space-y-1">
+                                    <li>کتیبه‌های قرآنی و آیات</li>
+                                    <li>کتیبه‌های اسماء متبرکه</li>
+                                    <li>کتیبه‌های اشعار و ادبیات فارسی</li>
+                                    <li>کتیبه‌های تزئینی و دکوراتیو</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <h5 class="text-lg font-bold mb-2 text-primary/80">سبک‌های خوشنویسی:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">نستعلیق</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">ثلث</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">نسخ</span>
+                                    <span class="bg-[#333] px-3 py-1 rounded-full text-sm">شکسته نستعلیق</span>
+                                </div>
+                            </div>
+                            
+                            <a href="https://instagram.com/mahisaartt" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-button hover:opacity-90 transition-all">
+                                <i class="ri-instagram-line"></i>
+                                <span>مشاهده نمونه کارها در اینستاگرام</span>
+                            </a>
+                        </div>
+                        
+                        <div class="w-full md:w-1/3 bg-[#222] rounded-lg overflow-hidden">
+                            <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=beautiful%20Persian%20calligraphy%20art%20with%20gold%20and%20black%20colors%2C%20elegant%20Islamic%20inscription%20design%2C%20artistic%20calligraphy%20on%20display&width=400&height=500&seq=inscription1&orientation=portrait')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-6 bg-[#1A1A1A]">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary">درباره ما</h2>
+            
+            <div class="bg-[#222] p-8 rounded-lg border border-[#333] max-w-4xl mx-auto">
+                <div class="flex flex-wrap md:flex-nowrap gap-8">
+                    <div class="w-full md:w-2/3">
+                        <p class="text-gray-300 mb-4">محیصا آرت یک استودیوی طراحی گرافیک است که با هدف ارائه خدمات طراحی با کیفیت و خلاقانه تأسیس شده است. ما با تیمی از طراحان حرفه‌ای و با تجربه، خدمات متنوعی در زمینه طراحی گرافیک ارائه می‌دهیم.</p>
+                        
+                        <p class="text-gray-300 mb-4">در محیصا آرت، ما به هر پروژه به عنوان یک فرصت برای خلق اثری منحصر به فرد نگاه می‌کنیم. ما با درک نیازها و خواسته‌های مشتریان، طرح‌هایی ارائه می‌دهیم که علاوه بر زیبایی، کاربردی و اثرگذار باشند.</p>
+                        
+                        <p class="text-gray-300 mb-4">فلسفه کاری ما بر پایه خلاقیت، کیفیت و تعهد به مشتری استوار است. ما باور داریم که طراحی خوب می‌تواند تأثیر شگرفی بر موفقیت کسب و کارها داشته باشد و به همین دلیل، تمام تلاش خود را برای ارائه بهترین خدمات به مشتریان به کار می‌گیریم.</p>
+                        
+                        <div class="mt-6">
+                            <h4 class="text-xl font-bold mb-3 text-primary/80">ارزش‌های ما:</h4>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <li class="flex items-center gap-2">
+                                    <span class="w-6 h-6 flex items-center justify-center bg-primary/20 rounded-full text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </span>
+                                    <span class="text-gray-300">خلاقیت و نوآوری</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-6 h-6 flex items-center justify-center bg-primary/20 rounded-full text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </span>
+                                    <span class="text-gray-300">کیفیت بالا</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-6 h-6 flex items-center justify-center bg-primary/20 rounded-full text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </span>
+                                    <span class="text-gray-300">تعهد به مشتری</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span class="w-6 h-6 flex items-center justify-center bg-primary/20 rounded-full text-primary">
+                                        <i class="ri-check-line"></i>
+                                    </span>
+                                    <span class="text-gray-300">به‌روز بودن</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full md:w-1/3 bg-[#1D1D1D] rounded-lg overflow-hidden">
+                        <div class="h-full w-full bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=creative%20graphic%20design%20studio%20with%20modern%20aesthetic%2C%20artistic%20workspace%20with%20design%20tools%20and%20samples%2C%20professional%20design%20environment&width=400&height=500&seq=about1&orientation=portrait')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-6 bg-[#151515]">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary">ارتباط با ما</h2>
+            
+            <div class="max-w-3xl mx-auto bg-[#1A1A1A] rounded-lg p-8 border border-[#333]">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-white">اطلاعات تماس</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="contact-item flex items-center gap-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-phone-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white">شماره تماس</h4>
+                                    <p class="text-gray-300 mt-1">۰۹۳۳۴۴۸۰۰۵۲</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item flex items-center gap-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-telegram-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white">تلگرام</h4>
+                                    <p class="text-gray-300 mt-1">@admiin_mahisaart</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item flex items-center gap-4">
+                                <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-instagram-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-white">اینستاگرام</h4>
+                                    <p class="text-gray-300 mt-1">@mahisaartt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-white">فرم تماس</h3>
+                        
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">نام و نام خانوادگی</label>
+                                <input type="text" id="name" class="w-full bg-[#222] border border-[#444] rounded p-3 text-white focus:border-primary focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">ایمیل</label>
+                                <input type="email" id="email" class="w-full bg-[#222] border border-[#444] rounded p-3 text-white focus:border-primary focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-gray-300 mb-2">پیام</label>
+                                <textarea id="message" rows="4" class="w-full bg-[#222] border border-[#444] rounded p-3 text-white focus:border-primary focus:outline-none"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="bg-primary text-secondary px-6 py-3 rounded-button font-bold hover:bg-opacity-90 transition-all !rounded-button whitespace-nowrap">ارسال پیام</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="py-16 px-6 bg-[#1A1A1A]">
+        <div class="container mx-auto">
+            <div class="quote-container max-w-4xl mx-auto py-12 px-6 rounded-lg text-center">
+                <p class="nastaliq text-3xl md:text-4xl lg:text-5xl leading-relaxed text-primary mb-6">کسی که در کار خود مهارت دارد، آن را با عشق انجام می‌دهد.</p>
+                <p class="text-gray-400">امام علی (ع)</p>
+                
+                <div class="absolute top-4 left-4 w-12 h-12 text-primary/20 floating">
+                    <i class="ri-double-quotes-l ri-3x"></i>
+                </div>
+                
+                <div class="absolute bottom-4 right-4 w-12 h-12 text-primary/20 floating" style="animation-delay: 1s;">
+                    <i class="ri-double-quotes-r ri-3x"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#111] py-8 px-6">
+        <div class="container mx-auto">
+            <div class="flex flex-col items-center">
+                <h2 class="text-2xl font-bold text-primary mb-4">محیصا آرت</h2>
+                <p class="text-gray-400 text-center mb-6">طراحی خلاقانه، اجرای حرفه‌ای</p>
+                
+                <div class="flex space-x-4 space-x-reverse mb-6">
+                    <a href="https://instagram.com/mahisaartt" class="w-10 h-10 flex items-center justify-center bg-[#222] rounded-full text-gray-300 hover:bg-primary hover:text-secondary transition-all">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="https://t.me/admiin_mahisaart" class="w-10 h-10 flex items-center justify-center bg-[#222] rounded-full text-gray-300 hover:bg-primary hover:text-secondary transition-all">
+                        <i class="ri-telegram-line"></i>
+                    </a>
+                    <a href="tel:09334480052" class="w-10 h-10 flex items-center justify-center bg-[#222] rounded-full text-gray-300 hover:bg-primary hover:text-secondary transition-all">
+                        <i class="ri-phone-line"></i>
+                    </a>
+                </div>
+                
+                <p class="text-gray-500 text-sm">© ۱۴۰۴ محیصا آرت. تمامی حقوق محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animation for logo
+            const logo = document.getElementById('logo');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    logo.style.transform = 'scale(0.8)';
+                } else {
+                    logo.style.transform = 'scale(1)';
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Service tabs functionality
+            const serviceCards = document.querySelectorAll('.service-card');
+            const serviceContents = document.querySelectorAll('.service-content');
+            
+            // Show first service by default
+            document.getElementById('poster-content').classList.add('active');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const service = this.getAttribute('data-service');
+                    
+                    // Hide all contents
+                    serviceContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Show selected content
+                    document.getElementById(`${service}-content`).classList.add('active');
+                    
+                    // Update active card
+                    serviceCards.forEach(c => {
+                        c.classList.remove('border-primary');
+                        c.classList.add('border-[#333]');
+                    });
+                    this.classList.remove('border-[#333]');
+                    this.classList.add('border-primary');
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form validation
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const nameInput = document.getElementById('name');
+                    const emailInput = document.getElementById('email');
+                    const messageInput = document.getElementById('message');
+                    
+                    let isValid = true;
+                    
+                    if (!nameInput.value.trim()) {
+                        nameInput.classList.add('border-red-500');
+                        isValid = false;
+                    } else {
+                        nameInput.classList.remove('border-red-500');
+                    }
+                    
+                    if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
+                        emailInput.classList.add('border-red-500');
+                        isValid = false;
+                    } else {
+                        emailInput.classList.remove('border-red-500');
+                    }
+                    
+                    if (!messageInput.value.trim()) {
+                        messageInput.classList.add('border-red-500');
+                        isValid = false;
+                    } else {
+                        messageInput.classList.remove('border-red-500');
+                    }
+                    
+                    if (isValid) {
+                        alert('پیام شما با موفقیت ارسال شد!');
+                        form.reset();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
