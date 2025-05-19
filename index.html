@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="محیصا آرت | طراحی مذهبی، طراحی پوستر، کتیبه، تراکت و بنرهای فرهنگی برای هیئت‌ها و مساجد">
+  <meta name="keywords" content="محیصا آرت, طراحی مذهبی, طراحی پوستر, طراحی کتیبه, طراحی تراکت, گرافیک اسلامی, هیئت, مسجد">
+  <meta name="author" content="محیصا آرت">
+  <meta name="robots" content="index, follow">
+  <meta name="google-site-verification" content="NeXKZ5b8WdCUbJiS8u0LP4SqRkdDA0Vy5xnE7UVCD0A" />
+  <title>محیصا آرت | طراحی مذهبی</title>
+  <link rel="canonical" href="https://mahisaart.github.io/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+    header {
+      background-color: #FFD700;
+      padding: 10px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    header.shrink {
+      padding: 5px;
+    }
+    header img {
+      height: 60px;
+      transition: all 0.3s ease;
+    }
+    header.shrink img {
+      height: 30px;
+    }
+    main {
+      padding-top: 100px;
+      text-align: center;
+    }
+    .services {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+    .service {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 12px;
+      width: 250px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .service:hover {
+      background-color: #333;
+    }
+    .contact {
+      margin: 50px auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      animation: fadeIn 1.5s;
+    }
+    .contact h2 {
+      color: #FFD700;
+    }
+    .about {
+      margin: 40px auto;
+      max-width: 800px;
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .quote {
+      font-size: 24px;
+      font-family: 'IranNastaliq', serif;
+      margin: 60px 0;
+      color: #FFD700;
+      animation: float 3s infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .resume {
+      margin-top: 20px;
+      background: #2a2a2a;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .resume a {
+      color: #FFD700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header id="site-header">
+    <img src="۲۰۲۵۰۵۱۹-۱۶۰۷۱۱.png" alt="لوگو محیصا آرت">
+  </header>
+  <main>
+    <section class="services">
+      <div class="service" onclick="showResume('poster')">طراحی پوستر</div>
+      <div class="service" onclick="showResume('tract')">طراحی تراکت</div>
+      <div class="service" onclick="showResume('katibe')">طراحی کتیبه</div>
+    </section>
+    <div id="resume-box" class="resume" style="display:none"></div>
+    <section class="contact">
+      <h2>ارتباط با ما</h2>
+      <p>شماره تماس: ۰۹۳۳۴۴۸۰۰۵۲</p>
+      <p>تلگرام: <a href="https://t.me/admiin_mahisaart">@admiin_mahisaart</a></p>
+      <p>اینستاگرام: <a href="https://instagram.com/mahisaartt">@mahisaartt</a></p>
+    </section>
+    <section class="about">
+      <h2>درباره ما</h2>
+      <p>محیصا آرت یک برند تخصصی در طراحی مذهبی است که با بهره‌گیری از هنر اسلامی، خوشنویسی و تایپوگرافی حرفه‌ای، آثاری ماندگار و تاثیرگذار تولید می‌کند. هدف ما ایجاد ارتباط عمیق با مخاطب از طریق زیبایی‌شناسی دینی و طراحی‌های خلاقانه برای هیئت‌ها، مساجد، اطلاعیه‌ها و بنرهای فرهنگی مذهبی است.</p>
+    </section>
+    <section class="quote">
+      "هر کس نفس خویش را بشناسد، پروردگار خویش را شناخته است." — امام علی (ع)
+    </section>
+  </main>
+  <script>
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('site-header');
+      header.classList.toggle('shrink', window.scrollY > 50);
+    });
+    function showResume(type) {
+      const box = document.getElementById('resume-box');
+      let html = '';
+      if (type === 'poster') {
+        html = `<h3>طراحی پوستر</h3><p>نام و نام خانوادگی: سبحان سلیمانی نژاد</p><p>طراح گرافیک مذهبی با تمرکز بر پوسترهای مناسبتی، شهادت، ولادت و تبلیغات فرهنگی مذهبی</p><a href='https://instagram.com/mahisaartt' target='_blank'>مشاهده نمونه کار</a>`;
+      } else if (type === 'tract') {
+        html = `<h3>طراحی تراکت</h3><p>تجربه در طراحی تراکت‌های تبلیغاتی هیئات، مراسمات و اطلاعیه‌های دینی با ترکیب خط و تصویر</p><a href='https://instagram.com/mahisaartt' target='_blank'>مشاهده نمونه کار</a>`;
+      } else if (type === 'katibe') {
+        html = `<h3>طراحی کتیبه</h3><p>طراحی کتیبه‌های حرفه‌ای پشت منبر و بنرهای عظیم با تایپوگرافی، تصویر شهدا و اشعار فارسی و ترکی</p><a href='https://instagram.com/mahisaartt' target='_blank'>مشاهده نمونه کار</a>`;
+      }
+      box.innerHTML = html;
+      box.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
